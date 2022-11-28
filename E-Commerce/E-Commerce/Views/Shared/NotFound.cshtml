@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+<div class="row rounded-circle" style="text-align:center">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1 style="font-size:300px;font-family:cursive;color:gray;margin:0">404</h1>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h1 class="text-info" style="color: #04819a">
+                @(
+                   isArabic ? "الصفحة التي تحاول الوصول اليها غير موجودة" :
+                              "The page you are trying to access does not exist"
+                )
+            </h1>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <a style="color: #0202cd;text-decoration:none" asp-controller="Movies" asp-action="Index" >
+                <h2>
+                    @(
+                   isArabic ? "الذهاب للصفحة الرئيسية" :
+                              "Go to main page"
+                )
+                </h2>
+            </a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>

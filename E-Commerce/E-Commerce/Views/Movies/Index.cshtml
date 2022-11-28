@@ -3,7 +3,11 @@
     ViewData["Title"] = "List Of Movies";
 
 }
-
+<div class="row form-text">
+    <div class="col-md-8 offset-4 mb-4">
+        <h2 style="color: #0d6efd">@ViewBag.Welcome</h2>
+    </div>
+</div>
 <div class="row">
     @foreach (var _movie in Model)
     {

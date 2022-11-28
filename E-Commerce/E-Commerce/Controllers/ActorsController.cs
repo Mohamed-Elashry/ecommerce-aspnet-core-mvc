@@ -1,19 +1,94 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using E_Commerce.Models;
+using Microsoft.Extensions.Localization;
 
 namespace E_Commerce.Controllers
 {
-    public class ActorsController : Controller
+    public class ActorsController : BaseController
     {
-        private readonly AppDbContext _context;
-        public ActorsController(AppDbContext context)
+        private readonly IActorsService _service;
+        private readonly IStringLocalizer<ActorsController> _localizer;
+        public ActorsController(IActorsService service, IStringLocalizer<ActorsController> localizer)
         {
-            _context = context;
+            _service = service;
+            _localizer = localizer;
         }
         public async Task<IActionResult> Index()
         {
-            List<Actor> actors = new List<Actor>();
-            actors =await _context.Actors.ToListAsync();
+            ViewBag.Welcome = _localizer["Welcome"];
+            IEnumerable<Actor> actors = await _service.GetActors();
             return View(actors);
         }
+        //Get: Actors/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Actor actor)
+        {
+            if (!ModelState.IsValid)
+                return View(actor);
+
+            
+            var result = await _service.Add(actor);
+            return RedirectToAction(nameof(Index));
+        }
+        
+        public async Task<IActionResult> Detail(int id)
+        {
+            var result = await _service.GetActor(id);
+            if (result.Id > 0)
+                return View(result);
+            else
+                return View("NotFound");
+        }
+        public async Task<IActionResult> Update(int id)
+        {
+            var actor = await _service.GetActor(id);
+            if (actor.Id > 0)
+            {
+                return View(actor);
+            }
+            else
+                return View("NotFound");
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, Actor actor)
+        {
+            if (!ModelState.IsValid)
+                return View(actor);
+            var result = await _service.GetActor(id);
+            if (result.Id > 0)
+            {
+                await _service.Update(id, actor);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View("NotFound");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var actor = await _service.GetActor(id);
+            if (actor.Id > 0)
+            {
+                return View(actor);
+            }
+            else
+                return View("NotFound");
+        }
+        [HttpPost,ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirm(int id)
+        {
+            var result = await _service.GetActor(id);
+            if (result.Id > 0)
+            {
+                await _service.Delete(id);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+                return View("NotFound");
+        }
+
     }
 }

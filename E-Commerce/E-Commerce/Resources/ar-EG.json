@@ -1,0 +1,30 @@
+{
+  //General
+  "Welcome": "مرحبا {0}، كيف حالك؟",
+  "ShowAll": "عرض الكل",
+  "BtnEdit": "تعديل",
+  "BtnDelete": "حذف",
+  "BtnDetail": "تفاصيل",
+  "BtnAdd": "اضافة جديد",
+  // Nav Bar
+  "MainTitle": "حجز التذاكر",
+  "Movies": "الافلام",
+  "Management": "الادارة",
+  "Cinemas": "السينمات",
+  "Producers": "المنتجين",
+  "Actors": "الممثلين",
+  "SearchMovie": "...البحث عن فيلم",
+
+  // Actor Fields
+  "ViewActor": "عرض الممثلين",
+  "AddActor": "اضافة ممثل جديد",
+  "EditActor": "تعديل الممثل",
+  "DeleteActor": "حذف الممثل",
+  "DetailActor": "تفاصيل الممثل",
+
+  "LblURL": "الصورة الشخصية",
+  "LblName": "الاسم بالكامل",
+  "LblBio": "سيرة ذاتية",
+  "LblAction": "الاجراءات"
+
+}

@@ -1,0 +1,10 @@
+{
+  "Welcome": "مرحبا {0}، كيف حالك؟",
+  // Nav Bar
+  "Movies": "الافلام",
+  "Management": "الادارة",
+  "Cinemas": "السينمات",
+  "Producers": "المنتجين",
+  "Actors": "الممثلين",
+  "SearchMovie": "البحث عن فيلم..."
+}

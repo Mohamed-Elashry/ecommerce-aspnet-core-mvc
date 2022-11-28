@@ -1,0 +1,32 @@
+{
+  //General
+  "Welcome": "Welcome {0}, How are you?",
+  "ShowAll": "Show All ",
+  "BtnEdit": "Edit",
+  "BtnDelete": "Delete",
+  "BtnDetail": "Detail",
+  "BtnAdd": "Add New",
+
+  // Nav Bar
+  "MainTitle": "eTickets",
+  "Movies": "Movies",
+  "Management": "Management",
+  "Cinemas": "Cinemas",
+  "Producers": "Producers",
+  "Actors": "Actors",
+  "SearchMovie": "Search for a movie...",
+
+  // Actor Fields
+  "ViewActor": "Preview Actors",
+  "AddActor": "Add a new actor",
+  "EditActor": "Edit actor",
+  "DeleteActor": "Delete actor",
+  "DetailActor": "Details for actor",
+
+  "LblURL": "Profile Picture",
+  "LblName": "Full Name",
+  "LblBio": "Biography",
+  "LblAction": "Actions"
+
+
+}
