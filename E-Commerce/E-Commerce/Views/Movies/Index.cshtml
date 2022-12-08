@@ -1,11 +1,14 @@
 ﻿@model IEnumerable<Movie>
 @{
-    ViewData["Title"] = "List Of Movies";
+    ViewData["Title"] = localizer["ViewMovie"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 
 }
 <div class="row form-text">
-    <div class="col-md-8 offset-4 mb-4">
-        <h2 style="color: #0d6efd">@ViewBag.Welcome</h2>
+    <div class="col-md-4 mb-2">
+        <h2 style="color: #0d6efd;text-align:center">@ViewBag.Welcome</h2>
+    </div>
+    <div class="col-md-8 mb-2">
     </div>
 </div>
 <div class="row">
@@ -19,7 +22,9 @@
                           <p class="card-text">
                               <h5 class="card-title">
                                   @_movie.Name
-                                  <a class="text-white" style="float:right"><i class="bi bi-pencil-square"></i></a>
+                                  <span @(isArabic ? "style=float:left" : "style=float:right")>
+                                      <a class="text-white" asp-action="Update" asp-route-id="@_movie.Id"><i class="bi bi-pencil-square"></i></a>
+                                  </span>
                               </h5>
                           </p>
                       </div>
@@ -30,23 +35,23 @@
                   <div class="col-md-6">
                       <div class="card-body">
                           <p class="card-text">@_movie.Description</p>
-                          <p class="card-text"><b>Cinema: </b>@_movie.Cinema.Name</p>
-                          <p class="card-text"><b>Category: </b>@_movie.MovieCategory</p>
-                          <p class="card-text"><b>Start Date: </b> @_movie.StartDate.ToString("dd-MM-yyyy mm:ss tt")</p>
-                          <p class="card-text"><b>End Date: </b>@_movie.EndDate.ToString("dd-MM-yyyy mm:ss tt")</p>
+                          <p class="card-text"><b>@localizer["LblCinema"]: </b>@_movie.Cinema.Name</p>
+                          <p class="card-text"><b>@localizer["LblCategory"]: </b>@_movie.MovieCategory</p>
+                          <p class="card-text"><b>@localizer["LblStartDate"]: </b> @_movie.StartDate.ToString("dd-MM-yyyy mm:ss tt")</p>
+                          <p class="card-text"><b>@localizer["LblEndDate"]: </b>@_movie.EndDate.ToString("dd-MM-yyyy mm:ss tt")</p>
                           <p class="card-text">
-                              <b>Status: </b>
+                              <b>@localizer["LblStatus"]: </b>
                               @if (DateTime.Now >= _movie.StartDate && _movie.EndDate > DateTime.Now)
                               {
-                                  <span class="badge bg-success text-white">AVAILABLE</span>
+                                  <span class="badge bg-success text-white">@localizer["StatusAVAILABLE"]</span>
                               }
-                              else if(DateTime.Now > _movie.EndDate)
+                              else if (DateTime.Now > _movie.EndDate)
                               {
-                                  <span class="badge bg-danger text-white ">EXPIRED</span>
+                                  <span class="badge bg-danger text-white ">@localizer["StatusEXPIRED"]</span>
                               }
                               else
                               {
-                              <span class="badge bg-primary text-white">UPCOMING</span>
+                                  <span class="badge bg-primary text-white">@localizer["StatusUPCOMING"]</span>
                               }
                           </p>
                       </div>
@@ -54,8 +59,10 @@
                   <div class="col-md-12">
                       <div class="card-footer">
                           <div class="card-text">
-                              <a class="btn btn-outline-primary" style="float:right"><i class="bi bi-eye-fill"></i>Show Details</a>
-                              <a class="btn btn-success text-white"><i class="bi bi-card-plus"></i>Add To Cart (Price @_movie.Price.ToString("c"))</a>
+                              <span @(isArabic? "style=float:left" : "style=float:right")>
+                                  <a class="btn btn-outline-primary"  asp-action="Detail" asp-route-id="@_movie.Id"><i class="bi bi-eye-fill"></i>@localizer["BtnDetail"]</a>
+                              </span>
+                              <a class="btn btn-success text-white"><i class="bi bi-cart-plus"></i> @localizer["LblAddToCart"] (@localizer["LblPrice"] @_movie.Price.ToString("c"))</a>
                           </div>
                       </div>
                   </div>
@@ -64,3 +71,5 @@
         </div>
     }
 </div>
+
+@await Html.PartialAsync("_CreateItem","Movies")

@@ -1,6 +1,5 @@
 ﻿@*Define Model*@
 @model IEnumerable<Actor>
-
 @*Define ViewData*@
 @{
     ViewData["Title"] = localizer["ViewActor"];
@@ -51,10 +50,7 @@
     </div>
     <div class="col-md-2"></div>
 </div>
-<div class="text-white" style="position:fixed;bottom:25px;@(isArabic ? "left:25px" :"right:25px" )">
-    <a asp-controller="Actors" asp-action="Create" class="btn btn-success">
-        <i class="bi bi-plus-circle"> @localizer["BtnAdd"]</i>
-    </a>
-</div>
+
+@await Html.PartialAsync("_CreateItem", "Actors")
 
 

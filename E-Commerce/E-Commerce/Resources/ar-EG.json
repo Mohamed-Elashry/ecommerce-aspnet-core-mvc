@@ -6,6 +6,8 @@
   "BtnDelete": "حذف",
   "BtnDetail": "تفاصيل",
   "BtnAdd": "اضافة جديد",
+  "LblAction": "الاجراءات",
+
   // Nav Bar
   "MainTitle": "حجز التذاكر",
   "Movies": "الافلام",
@@ -25,6 +27,55 @@
   "LblURL": "الصورة الشخصية",
   "LblName": "الاسم بالكامل",
   "LblBio": "سيرة ذاتية",
-  "LblAction": "الاجراءات"
+
+  // Producer Fields
+  "ViewProducer": "عرض المنتجين",
+  "AddProducer": "اضافة منتج جديد",
+  "EditProducer": "تعديل المنتج",
+  "DeleteProducer": "حذف المنتج",
+  "DetailProducer": "تفاصيل المنتج",
+
+  "LblProducerURL": "الصورة الشخصية",
+  "LblProducerName": "الاسم بالكامل",
+  "LblProducerBio": "سيرة ذاتية",
+
+  // Cinema Fields
+  "ViewCinema": "عرض السينمات",
+  "AddCinema": "اضافة سينما",
+  "EditCinema": "تعديل سينما",
+  "DeleteCinema": "مسح سينما",
+  "DetailCinema": "تفاصيل السينما",
+
+  "LblCinemaURL": "صورة السينما",
+  "LblCinemaName": "الاسم بالكامل",
+  "LblCinemaBio": "الوصف",
+
+  // Movie Fields
+  "AddMovie": "اضافة فيلم جديد",
+  "ViewMovie": "قائمة الافلام",
+  "DetailMovie": "تفاصيل الفيلم",
+
+  "LblAddToCart": "اضافة الي قائمة الحجز",
+  "LblPrice": "السعر",
+  "LblCinema": "سينما",
+  "LblProducer": "المنتج",
+  "LblCategory": "التصنيف",
+  "LblStartDate": "تاريخ البداية",
+  "LblEndDate": "تاريخ النهاية",
+
+  "LblStatus": "الحالة",
+  "StatusAVAILABLE": "متاح",
+  "StatusEXPIRED": "انتهي",
+  "StatusUPCOMING": "قريبا",
+  // Create
+  "LblMovieName": "اسم الفيلم",
+  "LblMovieCinema": "اختر سينما",
+  "LblMovieProducer": "اختر منتج",
+  "LblMovieActors": "اختر ممثلين",
+  "LblMovieCategory": "اختر تصنيف",
+  "LblMovieStartDate": "تاريخ بداية الفيلم",
+  "LblMovieEndDate": "تاريخ نهاية الفيلم",
+  "LblMovieURL": "رابط الفيلم",
+  "LblMovieDescription": "وصف الفيلم"
 
 }

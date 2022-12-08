@@ -1,0 +1,61 @@
+﻿@model Cinema
+@{
+    ViewData["Title"] = localizer["DeleteCinema"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<div class="row text">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1>
+                @localizer["DeleteCinema"]  @Model.Name
+            </h1>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <div class="form-control" asp-action="Create">
+                <div class="form-group text-center">
+                    <img class="border-info rounded-circle" style="max-width:200px" id="PreiviewProfilePicture" />
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label">@localizer["LblCinemaURL"]</label>
+                    <input class="form-control" asp-for="Logo" readonly />
+                    <span class="text-danger" asp-validation-for="Logo"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="form-label" >@localizer["LblCinemaName"]</label>
+                    <input class="form-control" asp-for="Name" readonly />
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <label class="control-label">@localizer["LblCinemaBio"]</label>
+                    <input class="form-control" asp-for="Description" readonly />
+                    <span class="text-danger" asp-validation-for="Description"></span>
+                </div>
+                <div class="form-group mt-2">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <input type="submit" value="@localizer["BtnDelete"]" class="btn btn-danger" @(isArabic ? "style=float:left" :"style=float:right" ) />
+                    </form>
+                    <a class="btn btn-outline-secondary" asp-action="Index">@localizer["ShowAll"]</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var _outPut = document.getElementById('PreiviewProfilePicture');
+            _outPut.src = $("#Logo").val();
+        })
+      
+
+    </script>
+}

@@ -2,10 +2,11 @@
   //General
   "Welcome": "Welcome {0}, How are you?",
   "ShowAll": "Show All ",
-  "BtnEdit": "Edit",
+  "BtnEdit": "Update",
   "BtnDelete": "Delete",
   "BtnDetail": "Detail",
   "BtnAdd": "Add New",
+  "LblAction": "Actions",
 
   // Nav Bar
   "MainTitle": "eTickets",
@@ -17,7 +18,7 @@
   "SearchMovie": "Search for a movie...",
 
   // Actor Fields
-  "ViewActor": "Preview Actors",
+  "ViewActor": "Preview Actor",
   "AddActor": "Add a new actor",
   "EditActor": "Edit actor",
   "DeleteActor": "Delete actor",
@@ -26,7 +27,54 @@
   "LblURL": "Profile Picture",
   "LblName": "Full Name",
   "LblBio": "Biography",
-  "LblAction": "Actions"
 
+  // Producer Fields
+  "ViewProducer": "Preview producer",
+  "AddProducer": "Add a new producer",
+  "EditProducer": "Edit producer",
+  "DeleteProducer": "Delete producer",
+  "DetailProducer": "Details for producer",
+
+  "LblProducerURL": "Profile Picture",
+  "LblProducerName": "Full Name",
+  "LblProducerBio": "Biography",
+
+  // Cinema Fields
+  "ViewCinema": "Preview cinema",
+  "AddCinema": "Add a new cinema",
+  "EditCinema": "Edit cinema",
+  "DeleteCinema": "Delete cinema",
+  "DetailCinema": "Details for cinema",
+
+  "LblCinemaURL": "Profile cinema",
+  "LblCinemaName": "Full Name",
+  "LblCinemaBio": "Description",
+
+  // Movie Fields
+  "AddMovie": "Add a new movie",
+  "ViewMovie": "List Of Movies",
+  "DetailMovie": "Details of movie",
+
+  "LblAddToCart": "Add To Cart",
+  "LblPrice": "Price",
+  "LblCinema": "Cinema",
+  "LblProducer": "Producer",
+  "LblCategory": "Category",
+  "LblStartDate": "Start Date",
+  "LblEndDate": "End Date",
+  "LblStatus": "Status",
+  "StatusAVAILABLE": "AVAILABLE",
+  "StatusEXPIRED": "EXPIRED",
+  "StatusUPCOMING": "UPCOMING",
+  // Create
+  "LblMovieName": "Movie Name",
+  "LblMovieCinema": "Select a cinema",
+  "LblMovieProducer": "Select a producer",
+  "LblMovieActors": "Select an actor(s)",
+  "LblMovieCategory": "Select an category",
+  "LblMovieStartDate": "Movie start date",
+  "LblMovieEndDate": "Movie end date",
+  "LblMovieURL": "Movie poster URL",
+  "LblMovieDescription": "Movie description"
 
 }

@@ -15,7 +15,7 @@ namespace E_Commerce.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.Welcome = _localizer["Welcome"];
-            IEnumerable<Actor> actors = await _service.GetActors();
+            IEnumerable<Actor> actors = await _service.GetAllAsync();
             return View(actors);
         }
         //Get: Actors/Create
@@ -30,13 +30,13 @@ namespace E_Commerce.Controllers
                 return View(actor);
 
             
-            var result = await _service.Add(actor);
+            var result = await _service.AddAsync(actor);
             return RedirectToAction(nameof(Index));
         }
         
         public async Task<IActionResult> Detail(int id)
         {
-            var result = await _service.GetActor(id);
+            var result = await _service.GetByIdAsync(id);
             if (result.Id > 0)
                 return View(result);
             else
@@ -44,7 +44,7 @@ namespace E_Commerce.Controllers
         }
         public async Task<IActionResult> Update(int id)
         {
-            var actor = await _service.GetActor(id);
+            var actor = await _service.GetByIdAsync(id);
             if (actor.Id > 0)
             {
                 return View(actor);
@@ -57,10 +57,9 @@ namespace E_Commerce.Controllers
         {
             if (!ModelState.IsValid)
                 return View(actor);
-            var result = await _service.GetActor(id);
-            if (result.Id > 0)
+            if (id == actor.Id)
             {
-                await _service.Update(id, actor);
+                await _service.UpdateAsync(id, actor);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -69,8 +68,8 @@ namespace E_Commerce.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var actor = await _service.GetActor(id);
-            if (actor.Id > 0)
+            var actor = await _service.GetByIdAsync(id);
+            if (id == actor.Id)
             {
                 return View(actor);
             }
@@ -80,10 +79,10 @@ namespace E_Commerce.Controllers
         [HttpPost,ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var result = await _service.GetActor(id);
-            if (result.Id > 0)
+            var result = await _service.GetByIdAsync(id);
+            if (id == result.Id)
             {
-                await _service.Delete(id);
+                await _service.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             else

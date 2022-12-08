@@ -1,0 +1,85 @@
+﻿@model Movie
+@{
+    ViewData["Title"] = localizer["DetailMovie"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+
+}
+
+<div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6 border-primary mb-3">
+        <div class="card mb-3">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @Model.Name
+                            </h5>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6" style="width:320px">
+                    <img src="@Model.ImageURL" style="width:100%" alt="@Model.Name" />
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <p class="card-text">@Model.Description</p>
+                        <p class="card-text"><b>@localizer["LblCinema"]: </b>
+                           <a asp-controller="Cinemas" asp-action="Detail" asp-route-id="@Model.CinemaId">
+                                @Model.Cinema.Name
+                           </a>
+                        </p>
+                        <p class="card-text">
+                            <b>@localizer["LblProducer"]: </b>
+                            <a asp-controller="Producers" asp-action="Detail" asp-route-id="@Model.ProducerId">
+                                @Model.Producer.FullName
+                            </a>
+                        </p>
+                        <p class="card-text"><b>@localizer["LblCategory"]: </b>@Model.MovieCategory</p>
+                        <p class="card-text"><b>@localizer["LblStartDate"]: </b> @Model.StartDate.ToString("dd-MM-yyyy mm:ss tt")</p>
+                        <p class="card-text"><b>@localizer["LblEndDate"]: </b>@Model.EndDate.ToString("dd-MM-yyyy mm:ss tt")</p>
+                        <p class="card-text">
+                            <b>@localizer["LblStatus"]: </b>
+                            @if (DateTime.Now >= Model.StartDate && Model.EndDate > DateTime.Now)
+                            {
+                                <span class="badge bg-success text-white">@localizer["StatusAVAILABLE"]</span>
+                            }
+                            else if (DateTime.Now > Model.EndDate)
+                            {
+                                <span class="badge bg-danger text-white ">@localizer["StatusEXPIRED"]</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-primary text-white">@localizer["StatusUPCOMING"]</span>
+                            }
+                        </p>
+                        <div class="card-text">
+                            <b>@localizer["Actors"]: </b>
+                           <hr />
+                           <div style="display: -webkit-inline-box;">
+                               @foreach (var actor in Model.Actors_Movies.Select(a => a.Actor))
+                               {
+                                 <div class=" text-center">
+                                     <img src="@actor.ProfilePictureUrl" class="border-info rounded-circle" style="max-width:100px" />
+                                     <br />
+                                     <a asp-controller="Actors" asp-action="Detail" asp-route-id="@actor.Id">@actor.FullName</a>
+                                 </div>
+                               }
+                           </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer">
+                        <div class="card-text">
+                            <a class="btn btn-success text-white" @(isArabic ? "style=float:left" : "style=float:right")><i class="bi bi-cart-plus"></i> @localizer["LblAddToCart"] (@localizer["LblPrice"] @Model.Price.ToString("c"))</a>
+                            <a class="btn btn-outline-secondary" asp-action="Index">@localizer["ShowAll"]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

@@ -1,43 +1,55 @@
 ﻿@model IEnumerable<Producer>
 @{
-    ViewData["Title"] = "List Of Producers";
-
+    ViewData["Title"] = @localizer["ViewProducer"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
 <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-2"></div>
+    <div class="col-md-8 ">
         <table class="table">
             <thead>
                 <tr>
-                    <th>@Html.DisplayNameFor(model=>model.ProfilePictureUrl)</th>
-                    <th>@Html.DisplayNameFor(model=>model.FullName)</th>
-                    <th>@Html.DisplayNameFor(model=>model.Bio)</th>
-                    <th>Actions</th>
+                    <th>@localizer["LblProducerURL"]</th>
+                    <th>@localizer["LblProducerName"]</th>
+                    <th>@localizer["LblProducerBio"]</th>
+                    <th>@localizer["LblAction"]</th>
+
                 </tr>
             </thead>
             <tbody>
-                @foreach(var _producer in Model)
+                @foreach (var _producer in Model)
                 {
                     <tr>
                         <td class="align-middle">
                             <img class="rounded-circle" src="@_producer.ProfilePictureUrl" alt="@_producer.FullName">
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(model=> _producer.FullName)
+                            @Html.DisplayFor(model => _producer.FullName)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(model=> _producer.Bio)
+                            @Html.DisplayFor(model => _producer.Bio)
                         </td>
                         <td class="align-middle">
-                            <a class="btn btn-outline-primary"><i class="bi bi-pencil-square"></i>Edit</a> |
-                            <a class="btn btn-info"><i class="bi bi-eye"></i>Detail</a> |
-                            <a class="btn btn-danger texttext-white"><i class="bi bi-trash"></i>Delete</a> 
+                            <a class="btn btn-outline-primary" asp-action="Update" asp-route-id="@_producer.Id">
+                                <i class="bi bi-pencil-square"></i>@localizer["BtnEdit"]
+                            </a> |
+                            <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@_producer.Id">
+                                <i class="bi bi-eye"></i>@localizer["BtnDetail"]
+                            </a> |
+                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@_producer.Id">
+                                <i class="bi bi-trash"></i>@localizer["BtnDelete"]
+                            </a>
                         </td>
-                            
+
                     </tr>
                 }
             </tbody>
 
         </table>
     </div>
+    <div class="col-md-2"></div>
 </div>
+
+
+@await Html.PartialAsync("_CreateItem", "Producers")

@@ -1,0 +1,10 @@
+﻿@model string;
+@{ 
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<div class="text-white" style="position:fixed;bottom:25px;@(isArabic ? "left:25px" :"right:25px" )">
+    <a asp-controller="@Model" asp-action="Create" class="btn btn-success">
+        <i class="bi bi-plus-circle"> @localizer["BtnAdd"] </i>
+    </a>
+</div>

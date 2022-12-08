@@ -1,6 +1,6 @@
-﻿@model Actor
+﻿@model Cinema
 @{
-    ViewData["Title"] = localizer["DetailActor"];
+    ViewData["Title"] = localizer["DetailCinema"];
     var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
@@ -9,7 +9,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-8 ">
             <h1>
-                @localizer["DetailActor"]  @Model.FullName
+                @localizer["DetailCinema"]  @Model.Name
             </h1>
         </div>
         <div class="col-md-2"></div>
@@ -23,19 +23,19 @@
                     <img class="border-info rounded-circle" style="max-width:200px" id="PreiviewProfilePicture" />
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label">@localizer["LblURL"]</label>
-                    <input class="form-control" asp-for="ProfilePictureUrl" readonly />
-                    <span class="text-danger" asp-validation-for="ProfilePictureUrl"></span>
+                    <label class="form-label">@localizer["LblCinemaURL"]</label>
+                    <input class="form-control" asp-for="Logo" readonly />
+                    <span class="text-danger" asp-validation-for="Logo"></span>
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label">@localizer["LblName"]</label>
-                    <input class="form-control" asp-for="FullName" readonly />
-                    <span class="text-danger" asp-validation-for="FullName"></span>
+                    <label class="form-label">@localizer["LblCinemaName"]</label>
+                    <input class="form-control" asp-for="Name" readonly />
+                    <span class="text-danger" asp-validation-for="Name"></span>
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label">@localizer["LblBio"]</label>
-                    <input class="form-control" asp-for="Bio" readonly />
-                    <span class="text-danger" asp-validation-for="Bio"></span>
+                    <label class="form-label">@localizer["LblCinemaBio"]</label>
+                    <input class="form-control" asp-for="Description" readonly />
+                    <span class="text-danger" asp-validation-for="Description"></span>
                 </div>
                 <div class="form-group mt-2">
                     <span @(isArabic ? "style=float:left" : "style=float:right" )>
@@ -53,7 +53,7 @@
     <script>
         $(document).ready(function () {
             var _outPut = document.getElementById('PreiviewProfilePicture');
-            _outPut.src = $("#ProfilePictureUrl").val();
+            _outPut.src = $("#Logo").val();
         })
       
 

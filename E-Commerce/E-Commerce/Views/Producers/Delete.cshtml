@@ -1,20 +1,19 @@
-﻿@model Actor
+﻿@model Producer
 @{
-    ViewData["Title"] = localizer["DetailActor"];
+    ViewData["Title"] = localizer["DeleteProducer"];
     var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
 }
 
 <div class="row text">
     <div class="row">
         <div class="col-md-2"></div>
-        <div class="col-md-8 ">
+        <div class="col-md-8">
             <h1>
-                @localizer["DetailActor"]  @Model.FullName
+                @localizer["DeleteProducer"]  @Model.FullName
             </h1>
         </div>
         <div class="col-md-2"></div>
     </div>
-    
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -28,19 +27,20 @@
                     <span class="text-danger" asp-validation-for="ProfilePictureUrl"></span>
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label">@localizer["LblName"]</label>
+                    <label class="form-label" >@localizer["LblName"]</label>
                     <input class="form-control" asp-for="FullName" readonly />
                     <span class="text-danger" asp-validation-for="FullName"></span>
                 </div>
                 <div class="form-group mt-2">
-                    <label class="form-label">@localizer["LblBio"]</label>
+                    <label class="control-label">@localizer["LblBio"]</label>
                     <input class="form-control" asp-for="Bio" readonly />
                     <span class="text-danger" asp-validation-for="Bio"></span>
                 </div>
                 <div class="form-group mt-2">
-                    <span @(isArabic ? "style=float:left" : "style=float:right" )>
-                        <a class="btn btn-outline-success" asp-action="Update" asp-route-id="@Model.Id">@localizer["BtnEdit"]</a>
-                    </span>
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="@Model.Id" />
+                        <input type="submit" value="@localizer["BtnDelete"]" class="btn btn-danger" @(isArabic ? "style=float:left" :"style=float:right" ) />
+                    </form>
                     <a class="btn btn-outline-secondary" asp-action="Index">@localizer["ShowAll"]</a>
                 </div>
             </div>
