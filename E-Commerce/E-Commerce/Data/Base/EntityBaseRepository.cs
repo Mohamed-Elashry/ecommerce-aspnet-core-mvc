@@ -78,5 +78,14 @@ namespace E_Commerce.Data.Base
             query = includeProperties.Aggregate(query,(current,includeProperties) => current.Include(includeProperties));
             return await query.ToListAsync();
         }
+
+        public async Task<IEnumerable<T>> FilterAsync(Expression<Func<T, bool>> filter, Expression<Func<T,object>>[] includeProperties)
+        {
+            IQueryable<T> result =  _context.Set<T>().Where(filter);
+            //.Include(includeProperties)
+            //.Where(filter).ToListAsync();
+            result = includeProperties.Aggregate(result, (current, includeProperties) => current.Include(includeProperties));
+            return await result.ToListAsync();
+        }
     }
 }

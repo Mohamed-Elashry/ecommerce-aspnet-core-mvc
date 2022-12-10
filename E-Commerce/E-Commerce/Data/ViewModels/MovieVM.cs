@@ -5,6 +5,7 @@ namespace E_Commerce.Models
 {
     public class MovieVM
     {
+        public int? MovieId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public double Price { get; set; }

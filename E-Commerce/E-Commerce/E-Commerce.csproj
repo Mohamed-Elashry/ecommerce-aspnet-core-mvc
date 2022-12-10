@@ -8,6 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Services\ActorsService.cs" />
+    <Compile Remove="Data\Services\CinemasService.cs" />
+    <Compile Remove="Data\Services\IActorsService.cs" />
+    <Compile Remove="Data\Services\ICinemasService.cs" />
+    <Compile Remove="Data\Services\IProducersService.cs" />
+    <Compile Remove="Data\Services\ProducersService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />

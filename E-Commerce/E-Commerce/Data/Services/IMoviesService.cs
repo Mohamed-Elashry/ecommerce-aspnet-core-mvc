@@ -4,5 +4,6 @@
     {
         Task<Movie> GetMovieAsync(int id);
         Task AddAsync(MovieVM data);
+        Task UpdateAsync(int id, MovieVM data);
     }
 }

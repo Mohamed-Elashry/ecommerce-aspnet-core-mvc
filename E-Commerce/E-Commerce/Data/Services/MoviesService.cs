@@ -1,4 +1,6 @@
-﻿namespace E_Commerce.Data.Services
+﻿using E_Commerce.Models;
+
+namespace E_Commerce.Data.Services
 {
     public class MoviesService:EntityBaseRepository<Movie>,IMoviesService
     {
@@ -20,8 +22,9 @@
                 EndDate = data.EndDate,
                 ImageURL = data.ImageURL,
                 ProducerId = data.ProducerId,
+                MovieCategory= data.MovieCategory,
             };
-            await _context.AddAsync(newMovie);
+            await _context.Movies.AddAsync(newMovie);
             await _context.SaveChangesAsync();
 
             if (data.ActorIds.Count() > 0)
@@ -37,7 +40,7 @@
                 }
                 if(actors_Movie.Count() > 0)
                 {
-                    await _context.AddRangeAsync(actors_Movie);
+                    await _context.Actors_Movies.AddRangeAsync(actors_Movie);
                     await _context.SaveChangesAsync();
                 }
 
@@ -53,6 +56,44 @@
                                       .ThenInclude(a => a.Actor)
                                       .FirstOrDefaultAsync(s => s.Id == id);
             return movie;
+        }
+
+        public async Task UpdateAsync(int id, MovieVM data)
+        {
+           Movie movie = await _context.Movies.FindAsync(id)?? new Movie();
+            movie.CinemaId = data.CinemaId;
+            movie.Name = data.Name;
+            movie.Price = data.Price;
+            movie.Description = data.Description;
+            movie.StartDate = data.StartDate;
+            movie.EndDate = data.EndDate;
+            movie.ImageURL = data.ImageURL;
+            movie.ProducerId = data.ProducerId;
+            movie.MovieCategory= data.MovieCategory;
+             _context.Movies.Update(movie);
+            await _context.SaveChangesAsync();
+
+            var DelActor_Movies = _context.Actors_Movies.Where(m=>m.MovieId== id);
+             _context.Actors_Movies.RemoveRange(DelActor_Movies);
+
+            if (data.ActorIds.Count() > 0)
+            {
+                List<Actor_Movie> actors_Movie = new List<Actor_Movie>();
+                foreach (var actorId in data.ActorIds)
+                {
+                    actors_Movie.Add(new Actor_Movie()
+                    {
+                        MovieId = movie.Id,
+                        ActorId = actorId,
+                    });
+                }
+                if (actors_Movie.Count() > 0)
+                {
+                    await _context.Actors_Movies.AddRangeAsync(actors_Movie);
+                    await _context.SaveChangesAsync();
+                }
+
+            }
         }
     }
 }

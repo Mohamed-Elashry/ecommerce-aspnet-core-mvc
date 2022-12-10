@@ -70,8 +70,11 @@
                         </li>
 
                     </ul>
-                    <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-                        <input type="text" class="form-control" name="search" id="search" placeholder="@localizer["SearchMovie"]">
+                    <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" 
+                          asp-controller="Movies" 
+                          asp-action="Filter"
+                          >
+                        <input onchange="this.form.submit();" type="text" class="form-control" name="searchString" id="searchString" placeholder="@localizer["SearchMovie"]">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
                     </form>
                     <div class="p-2">

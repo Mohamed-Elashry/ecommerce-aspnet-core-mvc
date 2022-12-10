@@ -1,5 +1,6 @@
 using E_Commerce.Data;
 using E_Commerce.Data.Localization;
+using E_Commerce.Data.UOW;
 using E_Commerce.Middlewares;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
@@ -17,12 +18,9 @@ builder.Services
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
        );
 
-#region Service Configuration
-builder.Services.AddScoped<IGeneralService, GeneralService>();
-builder.Services.AddScoped<IActorsService, ActorsService>();
-builder.Services.AddScoped<IProducersService, ProducersService>();
-builder.Services.AddScoped<ICinemasService, CinemasService>();
-builder.Services.AddScoped<IMoviesService, MoviesService>();    
+#region Service Configuration   
+builder.Services.AddScoped<IGeneralService,GeneralService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 #endregion
 
 #region Localization

@@ -4,10 +4,10 @@ namespace E_Commerce.Data.Services
 {
     public interface IGeneralService
     {
-        Task<SelectList> FillActors();
-        Task<SelectList> FillProducers();
-        Task<SelectList> FillCinemas();
-        Task<SelectList> FillMovies();
+        Task<SelectList> FillActors(int id = 0);
+        Task<SelectList> FillProducers(int id = 0);
+        Task<SelectList> FillCinemas(int id = 0);
+        Task<SelectList> FillMovies(int id = 0);
         
     }
 }

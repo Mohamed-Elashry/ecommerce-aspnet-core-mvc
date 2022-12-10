@@ -54,6 +54,7 @@
   "AddMovie": "Add a new movie",
   "ViewMovie": "List Of Movies",
   "DetailMovie": "Details of movie",
+  "UpdateMovie": "Edit Movie",
 
   "LblAddToCart": "Add To Cart",
   "LblPrice": "Price",

@@ -5,17 +5,17 @@ namespace E_Commerce.Controllers
 {
     public class ActorsController : BaseController
     {
-        private readonly IActorsService _service;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IStringLocalizer<ActorsController> _localizer;
-        public ActorsController(IActorsService service, IStringLocalizer<ActorsController> localizer)
+        public ActorsController(IUnitOfWork unitOfWork, IStringLocalizer<ActorsController> localizer)
         {
-            _service = service;
+            _unitOfWork= unitOfWork;
             _localizer = localizer;
         }
         public async Task<IActionResult> Index()
         {
             ViewBag.Welcome = _localizer["Welcome"];
-            IEnumerable<Actor> actors = await _service.GetAllAsync();
+            IEnumerable<Actor> actors = await _unitOfWork.Actors.GetAllAsync();
             return View(actors);
         }
         //Get: Actors/Create
@@ -30,13 +30,13 @@ namespace E_Commerce.Controllers
                 return View(actor);
 
             
-            var result = await _service.AddAsync(actor);
+            var result = await _unitOfWork.Actors.AddAsync(actor);
             return RedirectToAction(nameof(Index));
         }
         
         public async Task<IActionResult> Detail(int id)
         {
-            var result = await _service.GetByIdAsync(id);
+            var result = await _unitOfWork.Actors.GetByIdAsync(id);
             if (result.Id > 0)
                 return View(result);
             else
@@ -44,7 +44,7 @@ namespace E_Commerce.Controllers
         }
         public async Task<IActionResult> Update(int id)
         {
-            var actor = await _service.GetByIdAsync(id);
+            var actor = await _unitOfWork.Actors.GetByIdAsync(id);
             if (actor.Id > 0)
             {
                 return View(actor);
@@ -59,7 +59,7 @@ namespace E_Commerce.Controllers
                 return View(actor);
             if (id == actor.Id)
             {
-                await _service.UpdateAsync(id, actor);
+                await _unitOfWork.Actors.UpdateAsync(id, actor);
                 return RedirectToAction(nameof(Index));
             }
             else
@@ -68,7 +68,7 @@ namespace E_Commerce.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            var actor = await _service.GetByIdAsync(id);
+            var actor = await _unitOfWork.Actors.GetByIdAsync(id);
             if (id == actor.Id)
             {
                 return View(actor);
@@ -79,10 +79,10 @@ namespace E_Commerce.Controllers
         [HttpPost,ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirm(int id)
         {
-            var result = await _service.GetByIdAsync(id);
+            var result = await _unitOfWork.Actors.GetByIdAsync(id);
             if (id == result.Id)
             {
-                await _service.DeleteAsync(id);
+                await _unitOfWork.Actors.DeleteAsync(id);
                 return RedirectToAction(nameof(Index));
             }
             else

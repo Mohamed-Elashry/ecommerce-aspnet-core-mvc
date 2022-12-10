@@ -10,5 +10,6 @@ namespace E_Commerce.Data.Base
         Task<bool> AddAsync(T entity);
         Task<bool> UpdateAsync(int Id, T entity);
         Task<bool> DeleteAsync(int Id);
+        Task<IEnumerable<T>> FilterAsync(Expression<Func<T,bool>> filter,Expression<Func<T,object>>[] includeProperties);
     }
 }
