@@ -76,6 +76,12 @@
   "LblMovieStartDate": "Movie start date",
   "LblMovieEndDate": "Movie end date",
   "LblMovieURL": "Movie poster URL",
-  "LblMovieDescription": "Movie description"
+  "LblMovieDescription": "Movie description",
+  // Cart
+  "CartTitle": "Shopping Cart Summary",
+  "CartAmount": "Selected Amount",
+  "CartTotal": "Total",
+  "CartAddItems": "Add More Items",
+  "CartComplete": "Complete Order"
 
 }

@@ -77,6 +77,12 @@
   "LblMovieStartDate": "تاريخ بداية الفيلم",
   "LblMovieEndDate": "تاريخ نهاية الفيلم",
   "LblMovieURL": "رابط الفيلم",
-  "LblMovieDescription": "وصف الفيلم"
+  "LblMovieDescription": "وصف الفيلم",
+  // Cart
+  "CartTitle": "ملخص الافلام المختارة",
+  "CartAmount": "عدد الافلام",
+  "CartTotal": "الاجمالي",
+  "CartAddItems": "اضافة افلام اكثر",
+  "CartComplete": "تكملة الطلب"
 
 }

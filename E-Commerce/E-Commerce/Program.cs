@@ -1,4 +1,5 @@
 using E_Commerce.Data;
+using E_Commerce.Data.Cart;
 using E_Commerce.Data.Localization;
 using E_Commerce.Data.UOW;
 using E_Commerce.Middlewares;
@@ -21,6 +22,9 @@ builder.Services
 #region Service Configuration   
 builder.Services.AddScoped<IGeneralService,GeneralService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+builder.Services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
 #endregion
 
 #region Localization
@@ -50,6 +54,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 #endregion
 
+builder.Services.AddSession();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -67,7 +72,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 #region Complete Localization Configurations
 var supportedCultures = new[] { "en-US", "ar-EG", "ar-SA", "de-DE" };
 var localizationOptions = new RequestLocalizationOptions()

@@ -73,7 +73,12 @@
                 <div class="col-md-12">
                     <div class="card-footer">
                         <div class="card-text">
-                            <a class="btn btn-success text-white" @(isArabic ? "style=float:left" : "style=float:right")><i class="bi bi-cart-plus"></i> @localizer["LblAddToCart"] (@localizer["LblPrice"] @Model.Price.ToString("c"))</a>
+                            <span @(isArabic ? "style=float:left" : "style=float:right")>
+                                <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@Model.Id">
+                                    <i class="bi bi-cart-plus"></i> 
+                                     @localizer["LblAddToCart"] (@localizer["LblPrice"] @Model.Price.ToString("c"))
+                                </a>
+                            </span>
                             <a class="btn btn-outline-secondary" asp-action="Index">@localizer["ShowAll"]</a>
                         </div>
                     </div>

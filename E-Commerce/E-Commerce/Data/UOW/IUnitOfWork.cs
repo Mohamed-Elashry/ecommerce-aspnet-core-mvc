@@ -6,6 +6,7 @@
         IEntityBaseRepository<Cinema> Cinemas { get; }
         IEntityBaseRepository<Producer> Producers { get; }
         IMoviesService Movies { get; }
+        IOrdersService Orders { get; }
         IGeneralService GeneralServices { get; }
 
         Task<int> Complete();

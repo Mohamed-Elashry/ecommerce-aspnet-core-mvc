@@ -1,0 +1,73 @@
+﻿@model E_Commerce.Data.ViewModels.ShoppingCartVM
+@{
+    ViewData["Title"] = localizer["CartTitle"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+    var _total = Model.ShoppingCartTotal.ToString("c");
+
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@localizer["CartAmount"]</th>
+                    <th>@localizer["LblMovieName"]</th>
+                    <th>@localizer["LblPrice"]</th>
+                    <th>@localizer["CartTotal"]</th>
+                    <th>@localizer["LblAction"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var CartItems in Model.ShoppingCart.ShoppingCartItems)
+                {
+                    var _price = CartItems.Movie.Price.ToString("c");
+                    var _subtotal = (CartItems.Movie.Price * CartItems.Amount).ToString("c");
+                    <tr>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => CartItems.Amount)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => CartItems.Movie.Name)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => _price)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => _subtotal)
+                        </td>
+                        <td class="align-middle">
+                            <a class="text-danger " asp-action="RemoveItemFromShoppingCart" asp-route-id="@CartItems.Movie.Id">
+                                <i class="bi bi-cart-dash"></i>
+                            </a> |
+                            <a class="text-success " asp-action="AddToShoppingCart" asp-route-id="@CartItems.Movie.Id">
+                                <i class="bi bi-cart-plus"></i>
+                            </a>
+                        </td>
+
+
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>@localizer["CartTotal"]: </td>
+                    <td>@_total</td>
+                </tr>
+            </tfoot>
+        </table>
+        <div class="text-center">
+            <div class="btn-group">
+                <a class="btn btn-outline-success"  asp-action="CompleteOrder">
+                    @localizer["CartComplete"]
+                </a>
+                <a class="btn btn-outline-success" asp-controller="Movies" asp-action="Index">
+                    @localizer["CartAddItems"]
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>

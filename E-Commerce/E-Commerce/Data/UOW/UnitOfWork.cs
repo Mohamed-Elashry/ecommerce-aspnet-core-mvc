@@ -7,6 +7,8 @@
         public IEntityBaseRepository<Cinema> Cinemas { get; set; }
         public IEntityBaseRepository<Producer> Producers { get; set; }
         public IMoviesService Movies { get; set; }
+        public IOrdersService Orders { get; set; }
+
         public IGeneralService GeneralServices { get; set; }
 
         public UnitOfWork(AppDbContext context)
@@ -16,6 +18,7 @@
             Cinemas = new EntityBaseRepository<Cinema>(_context);
             Producers = new EntityBaseRepository<Producer>(_context);
             Movies = new MoviesService(_context);
+            Orders = new OrdersService(_context);
             GeneralServices = new GeneralService(_context);
         }
         public async Task<int> Complete()
