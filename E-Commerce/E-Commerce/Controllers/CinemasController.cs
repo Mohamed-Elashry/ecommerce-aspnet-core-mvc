@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace E_Commerce.Controllers
 {
-    public class CinemasController : Controller
+    public class CinemasController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public CinemasController(IUnitOfWork unitOfWork)

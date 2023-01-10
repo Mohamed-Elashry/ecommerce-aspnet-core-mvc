@@ -1,6 +1,7 @@
 {
   //General
   "Welcome": "Welcome {0}, How are you?",
+  "Hello": "Hello",
   "ShowAll": "Show All ",
   "BtnEdit": "Update",
   "BtnDelete": "Delete",
@@ -82,6 +83,30 @@
   "CartAmount": "Selected Amount",
   "CartTotal": "Total",
   "CartAddItems": "Add More Items",
-  "CartComplete": "Complete Order"
+  "CartComplete": "Complete Order",
+  "CartOrders": "List of all your orders",
+  "CartUser": "User",
+  "OrderID": "Order ID",
+  "CartItems": "Orders",
+
+  //Login
+  "LoginPage": "Sign In",
+  "LogoutPage": "Sign Out",
+  "Register": "Sign Up",
+  "LblFullName": "Full Name",
+  "LblEmailAddress": "Email Address",
+  "LblPassword": "Password",
+  "LblConfirmPassword": "Confirm Password",
+  "LblRememberMe": "Remember Me",
+  "LblLoginSignUp": "Don't have an account?",
+  "LblForgetPassword": "Forgot your password?",
+
+  // Users
+  "ListOfUsers": "List Of Users",
+  "UserFullName": "Full Name",
+  "UserName": "User Name",
+  "UserEmail": "Email",
+  "Users": "Users"
+
 
 }

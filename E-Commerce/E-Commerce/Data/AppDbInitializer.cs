@@ -1,20 +1,27 @@
 ﻿using E_Commerce.Data.Enums;
+using E_Commerce.Data.Static;
+using Microsoft.AspNetCore.Identity;
 
 namespace E_Commerce.Data
 {
     public class AppDbInitializer
     {
-        public static void Seed(IApplicationBuilder applicationBuilder)
+        public static async Task SeedData(IApplicationBuilder applicationBuilder)
+        {
+            await Seed(applicationBuilder);
+            await SeedUsersAndRolesAsync(applicationBuilder);
+        }
+        public static async Task Seed(IApplicationBuilder applicationBuilder)
         {
             using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
             {
                 var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
-                context.Database.EnsureCreated();
+                await context.Database.EnsureCreatedAsync();
 
                 //Cinema
-                if (!context.Cinemas.Any())
+                if (!await context.Cinemas.AnyAsync())
                 {
-                    context.Cinemas.AddRange(new List<Cinema>()
+                    await context.Cinemas.AddRangeAsync(new List<Cinema>()
                     {
                         new Cinema()
                         {
@@ -47,12 +54,12 @@ namespace E_Commerce.Data
                             Description = "This is the description of the first cinema"
                         },
                     });
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 //Actors
-                if (!context.Actors.Any())
+                if (! await context.Actors.AnyAsync())
                 {
-                    context.Actors.AddRange(new List<Actor>()
+                    await context.Actors.AddRangeAsync(new List<Actor>()
                     {
                         new Actor()
                         {
@@ -86,12 +93,12 @@ namespace E_Commerce.Data
                             ProfilePictureUrl = "http://dotnethow.net/images/actors/actor-5.jpeg"
                         }
                     });
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 //Producers
-                if (!context.Producers.Any())
+                if (!await context.Producers.AnyAsync())
                 {
-                    context.Producers.AddRange(new List<Producer>()
+                   await context.Producers.AddRangeAsync(new List<Producer>()
                     {
                         new Producer()
                         {
@@ -125,12 +132,12 @@ namespace E_Commerce.Data
                             ProfilePictureUrl = "http://dotnethow.net/images/producers/producer-5.jpeg"
                         }
                     });
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 //Movies
-                if (!context.Movies.Any())
+                if (!await context.Movies.AnyAsync())
                 {
-                    context.Movies.AddRange(new List<Movie>()
+                   await context.Movies.AddRangeAsync(new List<Movie>()
                     {
                         new Movie()
                         {
@@ -205,12 +212,12 @@ namespace E_Commerce.Data
                             MovieCategory = MovieCategory.Drama
                         }
                     });
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
                 //Actors & Movies
-                if (!context.Actors.Any())
+                if (!await context.Actors.AnyAsync())
                 {
-                    context.Actors_Movies.AddRange(new List<Actor_Movie>()
+                    await context.Actors_Movies.AddRangeAsync(new List<Actor_Movie>()
                     {
                         new Actor_Movie()
                         {
@@ -306,9 +313,59 @@ namespace E_Commerce.Data
                             MovieId = 6
                         },
                     });
-                    context.SaveChanges();
+                    await context.SaveChangesAsync();
                 }
             }
         }
+        public static async Task SeedUsersAndRolesAsync(IApplicationBuilder applicationBuilder)
+        {
+            using (var serviceScope = applicationBuilder.ApplicationServices.CreateScope())
+            {
+
+                //Roles
+                var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                //Users
+                var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                string adminUserEmail = "admin@etickets.com";
+
+                var adminUser = await userManager.FindByEmailAsync(adminUserEmail);
+                if (adminUser == null)
+                {
+                    var newAdminUser = new ApplicationUser()
+                    {
+                        FullName = "Admin User",
+                        UserName = "admin-user",
+                        Email = adminUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAdminUser, "Admin@123456");
+                    await userManager.AddToRoleAsync(newAdminUser, UserRoles.Admin);
+                }
+
+
+                string appUserEmail = "user@etickets.com";
+
+                var appUser = await userManager.FindByEmailAsync(appUserEmail);
+                if (appUser == null)
+                {
+                    var newAppUser = new ApplicationUser()
+                    {
+                        FullName = "Application User",
+                        UserName = "app-user",
+                        Email = appUserEmail,
+                        EmailConfirmed = true
+                    };
+                    await userManager.CreateAsync(newAppUser, "User@123456");
+                    await userManager.AddToRoleAsync(newAppUser, UserRoles.User);
+                }
+            }
+        }
+
     }
 }

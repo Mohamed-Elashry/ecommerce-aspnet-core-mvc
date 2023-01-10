@@ -38,9 +38,12 @@
                     <span class="text-danger" asp-validation-for="Bio"></span>
                 </div>
                 <div class="form-group mt-2">
-                    <span @(isArabic ? "style=float:left" : "style=float:right" )>
-                        <a class="btn btn-outline-success" asp-action="Update" asp-route-id="@Model.Id">@localizer["BtnEdit"]</a>
-                    </span>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <span @(isArabic ? "style=float:left" : "style=float:right" )>
+                            <a class="btn btn-outline-success" asp-action="Update" asp-route-id="@Model.Id">@localizer["BtnEdit"]</a>
+                        </span>
+                    }
                     <a class="btn btn-outline-secondary" asp-action="Index">@localizer["ShowAll"]</a>
                 </div>
             </div>

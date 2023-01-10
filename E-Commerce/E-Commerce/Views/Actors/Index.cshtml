@@ -16,7 +16,10 @@
                     <th>@localizer["LblURL"] </th>
                     <th>@localizer["LblName"] </th>
                     <th>@localizer["LblBio"] </th>
-                    <th>@localizer["LblAction"] </th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <th>@localizer["LblAction"] </th>
+                    }
                 </tr>
             </thead>
             <tbody>
@@ -32,17 +35,21 @@
                         <td class="align-middle">
                             @Html.DisplayFor(model => actor.Bio)
                         </td>
-                        <td class="align-middle">
-                            <a class="btn btn-outline-primary" asp-action="Update" asp-route-id="@actor.Id">
-                                <i class="bi bi-pencil-square"></i>@localizer["BtnEdit"]
-                            </a> |
-                            <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@actor.Id">
-                                <i class="bi bi-eye"></i>@localizer["BtnDetail"]
-                            </a> |
-                            <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@actor.Id">
-                                <i class="bi bi-trash"></i>@localizer["BtnDelete"]
-                            </a>
-                        </td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <td class="align-middle">
+                                <a class="btn btn-outline-primary" asp-action="Update" asp-route-id="@actor.Id">
+                                    <i class="bi bi-pencil-square"></i>@localizer["BtnEdit"]
+                                </a> |
+                                <a class="btn btn-outline-info" asp-action="Detail" asp-route-id="@actor.Id">
+                                    <i class="bi bi-eye"></i>@localizer["BtnDetail"]
+                                </a> |
+                                <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@actor.Id">
+                                    <i class="bi bi-trash"></i>@localizer["BtnDelete"]
+                                </a>
+                            </td>
+                        }
+
                     </tr>
                 }
             </tbody>

@@ -22,9 +22,13 @@
                           <p class="card-text">
                               <h5 class="card-title">
                                   @_movie.Name
-                                  <span @(isArabic ? "style=float:left" : "style=float:right")>
-                                      <a class="text-white" asp-action="Update" asp-route-id="@_movie.Id"><i class="bi bi-pencil-square"></i></a>
-                                  </span>
+                                  @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                                  {
+                                      <span @(isArabic ? "style=float:left" : "style=float:right")>
+                                          <a class="text-white" asp-action="Update" asp-route-id="@_movie.Id"><i class="bi bi-pencil-square"></i></a>
+                                      </span>
+                                  }
+
                               </h5>
                           </p>
                       </div>
@@ -59,10 +63,16 @@
                   <div class="col-md-12">
                       <div class="card-footer">
                           <div class="card-text">
-                              <span @(isArabic? "style=float:left" : "style=float:right")>
-                                  <a class="btn btn-outline-primary"  asp-action="Detail" asp-route-id="@_movie.Id"><i class="bi bi-eye-fill"></i>@localizer["BtnDetail"]</a>
+                              <span @(isArabic ? "style=float:left" : "style=float:right")>
+                                  <a class="btn btn-outline-primary" asp-action="Detail" asp-route-id="@_movie.Id"><i class="bi bi-eye-fill"></i>@localizer["BtnDetail"]</a>
                               </span>
-                              <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@_movie.Id"><i class="bi bi-cart-plus"></i> @localizer["LblAddToCart"] (@localizer["LblPrice"] @_movie.Price.ToString("c"))</a>
+                              @if (User.Identity.IsAuthenticated)
+                              {
+                                  <a class="btn btn-success text-white" asp-controller="Orders" asp-action="AddToShoppingCart" asp-route-id="@_movie.Id">
+                                      <i class="bi bi-cart-plus"></i>
+                                      @localizer["LblAddToCart"] (@localizer["LblPrice"] @_movie.Price.ToString("c"))
+                                  </a>
+                              }
                           </div>
                       </div>
                   </div>

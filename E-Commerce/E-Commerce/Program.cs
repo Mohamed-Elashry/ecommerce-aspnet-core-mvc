@@ -3,6 +3,8 @@ using E_Commerce.Data.Cart;
 using E_Commerce.Data.Localization;
 using E_Commerce.Data.UOW;
 using E_Commerce.Middlewares;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
@@ -53,8 +55,14 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 
 #endregion
-
+//Authentication and Authorization
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>();
+builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+});
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
@@ -73,6 +81,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseSession();
+//Authentication and Authorization
+app.UseAuthentication();
+app.UseAuthorization();
+
 #region Complete Localization Configurations
 var supportedCultures = new[] { "en-US", "ar-EG", "ar-SA", "de-DE" };
 var localizationOptions = new RequestLocalizationOptions()
@@ -89,5 +101,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-AppDbInitializer.Seed(app);
+AppDbInitializer.SeedData(app).Wait();
 app.Run();

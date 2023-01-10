@@ -1,6 +1,7 @@
 {
   //General
   "Welcome": "مرحبا {0}، كيف حالك؟",
+  "Hello": "مرحبا",
   "ShowAll": "عرض الكل",
   "BtnEdit": "تعديل",
   "BtnDelete": "حذف",
@@ -83,6 +84,28 @@
   "CartAmount": "عدد الافلام",
   "CartTotal": "الاجمالي",
   "CartAddItems": "اضافة افلام اكثر",
-  "CartComplete": "تكملة الطلب"
+  "CartComplete": "تكملة الطلب",
+  "CartOrders": "مجموع الطلبات الخاصة بك",
+  "CartUser": "المستخدم",
+  "OrderID": "رقم الطلب",
+  "CartItems": "الافلام",
 
+  //Login
+  "LoginPage": "تسجيل دخول",
+  "LogoutPage": "تسجيل خروج",
+  "Register": "تسجيل حساب جديد",
+  "LblFullName": "الاسم بالكامل",
+  "LblEmailAddress": "عنوان البريد الالكتروني",
+  "LblPassword": "كلمة المرور",
+  "LblConfirmPassword": "تاكيد كلمة المرور",
+  "LblRememberMe": "تذكرني",
+  "LblLoginSignUp": "ليس لديك حساب؟",
+  "LblForgetPassword": "هل نسيت كلمة المرور؟",
+
+  // Users
+  "ListOfUsers": "مجموعة المستخدمين",
+  "UserFullName": "الاسم بالكامل",
+  "UserName": "اسم المستخدم",
+  "UserEmail": "البريد الالكتروني",
+  "Users": "المستخدمين"
 }

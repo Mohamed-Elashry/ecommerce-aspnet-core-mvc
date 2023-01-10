@@ -9,6 +9,8 @@ global using Microsoft.Extensions.Localization;
 global using Microsoft.Extensions.Caching.Distributed;
 global using E_Commerce.Data.Base;
 global using E_Commerce.Data.UOW;
+global using Microsoft.AspNetCore.Authorization;
+
 
 
 

@@ -1,0 +1,57 @@
+﻿@model List<Order>
+@{
+    ViewData["Title"] = localizer["CartOrders"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@localizer["OrderID"]</th>
+                    <th>@localizer["CartItems"]</th>
+                    <th>@localizer["CartTotal"]</th>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <th>@localizer["CartUser"]</th>
+                    }
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var _item in Model)
+                {
+                    var _amount = _item.orderItems.Sum(s => s.Amount);
+                    var _price = _item.orderItems.Sum(s => s.Price);
+                    <tr>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => _item.Id)
+                        </td>
+                        <td class="align-middle ">
+                            @foreach (var item in _item.orderItems)
+                            {
+                                <p class="alert alert-info" role="alert">
+                                    <span class="badge bg-success">@item.Amount</span> [@item.Price.ToString("c")] - @item.Movie.Name
+                                </p>
+                            }
+                        </td>
+                        <td class="align-middle">
+                            @((_price * _amount).ToString("c"))
+                        </td>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("admin"))
+                        {
+                            <td class="align-middle">
+                                @Html.DisplayFor(model => _item.Users.FullName)
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>

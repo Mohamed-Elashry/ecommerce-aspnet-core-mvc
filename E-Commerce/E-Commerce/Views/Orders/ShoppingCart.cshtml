@@ -58,11 +58,13 @@
                 </tr>
             </tfoot>
         </table>
-        <div class="text-center">
+        <div @(isArabic ? "style=float:left" :"style=float:right" )>
             <div class="btn-group">
-                <a class="btn btn-outline-success"  asp-action="CompleteOrder">
+                @*<a class="btn btn-outline-success"  asp-action="CompleteOrder">
                     @localizer["CartComplete"]
-                </a>
+                </a>*@
+                <div id="paypal-btn"></div>
+                <span style="padding:5px"></span>
                 <a class="btn btn-outline-success" asp-controller="Movies" asp-action="Index">
                     @localizer["CartAddItems"]
                 </a>
@@ -71,3 +73,49 @@
     </div>
     <div class="col-md-2"></div>
 </div>
+
+@section Scripts{ 
+    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    <script>
+        let _total = @Html.Raw(Model.ShoppingCartTotal);
+        paypal.Button.render({
+            // configure environment
+            env: 'sandbox',
+            client: {
+                sandbox: 'AQmyGPwmMuMlXLP3w9xSkL_WNxoHUQSfYIJa7KNY1TUUNj_sIzLHNwVNGl_PjuKshhYWPj0B7XaNvhiy'
+            },
+
+            // customize button
+            local: 'en-US',
+            style: {
+                size: 'small',
+                color: 'gold',
+                shape: 'pill'
+            },
+            commit: true,
+
+            // set up a payment
+            payment: function (data, actions) {
+                return actions.payment.create({
+                    transactions: [{
+                        amount: {
+                            total: _total,
+                            currency: 'USD'
+                        }
+                    }]
+                })
+            },
+
+            // execute the payment
+            onAuthorize: function (data, actions) {
+                 var _url = '@Url.Action("CompleteOrder", "Orders", new {})';
+                    window.location.href = _url;
+                @*return actions.payment.execute().then(function () {
+                    var _url = '@Url.Action("CompleteOrder", "Orders", new {})';
+                    window.location.href = _url;
+
+                });*@
+            }
+        }, '#paypal-btn');
+    </script>
+}

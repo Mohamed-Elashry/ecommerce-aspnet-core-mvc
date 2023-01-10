@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ApplicationUser>
+@{
+    ViewData["Title"] = localizer["ListOfUsers"];
+    var isArabic = CultureInfo.CurrentCulture.Name.StartsWith("ar");
+}
+
+<div class="row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@localizer["UserFullName"] </th>
+                    <th>@localizer["UserName"] </th>
+                    <th>@localizer["UserEmail"] </th>                 
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var actor in Model)
+                {
+                    <tr>
+
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => actor.FullName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => actor.UserName)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(model => actor.Email)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+
+
+

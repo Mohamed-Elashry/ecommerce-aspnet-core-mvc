@@ -8,11 +8,19 @@
             _context = context;
         }
 
-        public async Task<List<Order>> GetOrdersByUserIdAsync(string userId) =>
-            await _context.Orders
+        public async Task<List<Order>> GetOrdersByUserIdAndRoleAsync(string userId, string userRole)
+        {
+            var orders = await _context.Orders
+                          .Include(o => o.Users)
                           .Include(inc => inc.orderItems)
-                          .ThenInclude(inc => inc.Movie)
-                          .Where(o => o.UserId == userId).ToListAsync();
+                          .ThenInclude(inc => inc.Movie).ToListAsync();
+            if (userRole != "admin")
+            {
+                orders = orders.Where(o => o.UserId == userId).ToList();
+            }
+            return orders;
+        }
+            
         
 
         public async Task StoreOrderAsync(List<ShoppingCartItem> shoppingCartItems, string userId, string userEmail)
@@ -26,7 +34,7 @@
             await _context.SaveChangesAsync();
             if (shoppingCartItems.Count() > 0)
             {
-                List<OrderItem> OrderItems = new List<OrderItem>();
+                List<OrderItem> orderItems = new List<OrderItem>();
                 OrderItem orderItem = new OrderItem();
                 foreach (var item in shoppingCartItems)
                 {
@@ -35,9 +43,9 @@
                     orderItem.MovieId = item.Movie.Id;
                     orderItem.Amount = item.Amount;
                     orderItem.Price = item.Movie.Price;
-                    OrderItems.Add(orderItem);
+                    orderItems.Add(orderItem);
                 }
-                await _context.OrderItems.AddRangeAsync(orderItem);
+                await _context.OrderItems.AddRangeAsync(orderItems);
                 await _context.SaveChangesAsync();
             }
         }

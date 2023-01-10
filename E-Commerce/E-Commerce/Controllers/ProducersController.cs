@@ -2,7 +2,7 @@
 
 namespace E_Commerce.Controllers
 {
-    public class ProducersController : Controller
+    public class ProducersController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
         public ProducersController(IUnitOfWork unitOfWork)

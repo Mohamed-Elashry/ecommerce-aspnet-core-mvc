@@ -1,7 +1,9 @@
-﻿using System.Linq.Expressions;
+﻿using Microsoft.AspNetCore.Authorization;
+using System.Linq.Expressions;
 
 namespace E_Commerce.Controllers
 {
+    [AllowAnonymous]
     public class MoviesController : BaseController
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -13,7 +15,8 @@ namespace E_Commerce.Controllers
             _unitOfWork = unitOfWork;
             _localizer = localizer;
             _generalService= generalService;
-        } 
+        }
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             ViewBag.Welcome = string.Format(_localizer["Welcome"], "Mohamed");
